@@ -1,0 +1,26 @@
+github_fetch_task:
+  description: >
+    Given a GitHub repository URL {repo_url}, fetch the code and prepare it for analysis.
+    Ensure that the repository is cloned correctly and all necessary files are accessible.
+  expected_output: >
+    A local copy of the GitHub repository, ready for code analysis.
+    The copy should be in a specified directory.
+  agent: github_reader
+
+smell_analysis_task:
+  description: >
+    Analyze the code from the fetched GitHub repository for potential "code smells".
+    Identify any patterns or issues that may indicate deeper problems in the codebase.
+  expected_output: >
+    A detailed list of identified "code smells" in the analyzed code, including
+    descriptions and potential implications for each smell.
+  agent: code_smell_analyzer
+
+report_generation_task:
+  description: >
+    Generate a comprehensive report based on the analysis of code smells and research findings.
+    The report should synthesize the information into clear and actionable insights.
+  expected_output: >
+    A well-structured report that combines the findings from the code smell analysis and research,
+    formatted in markdown without '```'.
+  agent: report_generator
