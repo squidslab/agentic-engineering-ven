@@ -18,6 +18,7 @@
 mono_crash.*
 
 # Build results
+[cloned_repo/]
 [Dd]ebug/
 [Dd]ebugPublic/
 [Rr]elease/
