@@ -1,26 +1,30 @@
-github_fetch_task:
-  description: >
-    Given a GitHub repository URL {repo_url}, fetch the code and prepare it for analysis.
-    Ensure that the repository is cloned correctly and all necessary files are accessible.
-  expected_output: >
-    A local copy of the GitHub repository, ready for code analysis.
-    The copy should be in a specified directory.
-  agent: github_reader
-
 smell_analysis_task:
   description: >
-    Analyze the code from the fetched GitHub repository for potential "code smells".
-    Identify any patterns or issues that may indicate deeper problems in the codebase.
+    Analyze the repository located at ./cloned_repo for potential code smells.
+
+    Follow these steps in ORDER:
+    1. Use the "List Repository Files" tool to get the list of all source files.
+    2. For EACH file listed, use the "Read Repository File" tool to read its content.
+    3. After reading each file, identify any code smells present.
+
+    For each code smell found:
+    - File name (exact)
+    - Class name
+    - Method name and a short quote of the problematic code
+    - Explanation of WHY it is a smell
+
+    Do NOT invent or guess file names or code. Only report what you actually read.
+
   expected_output: >
-    A detailed list of identified "code smells" in the analyzed code, including
-    descriptions and potential implications for each smell.
+    A detailed list of identified code smells, including the file name, class name, method, and explanation for each. The output should be formatted in markdown without '```'.
   agent: code_smell_analyzer
 
 report_generation_task:
   description: >
-    Generate a comprehensive report based on the analysis of code smells and research findings.
-    The report should synthesize the information into clear and actionable insights.
+    Generate a comprehensive report based on the code smell analysis results
+    provided by the previous task. Synthetize the findings into clear, actionable
+    insights with suggested refactoring strategies.
   expected_output: >
-    A well-structured report that combines the findings from the code smell analysis and research,
-    formatted in markdown without '```'.
+    A well-structured markdown report summarizing all code smells found,
+    grouped by severity or type, with refactoring suggestions. No code fences.
   agent: report_generator

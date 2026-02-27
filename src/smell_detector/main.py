@@ -5,6 +5,7 @@ import warnings
 from datetime import datetime
 
 from smell_detector.crew import SmellDetector
+from smell_detector.tools.custom_tool import CloneRepoTool
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
@@ -18,10 +19,12 @@ def run():
     Run the crew.
     """
     inputs = {
-        "repo_url": "https://github.com/",
+        "repo_url": "https://github.com/nerdschoolbergen/code-smells",
     }
 
+
     try:
+        CloneRepoTool().run(repo_url=inputs["repo_url"])
         SmellDetector().crew().kickoff(inputs=inputs)
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")

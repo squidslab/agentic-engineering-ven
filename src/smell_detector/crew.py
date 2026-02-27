@@ -3,6 +3,8 @@ from crewai.project import CrewBase, agent, crew, task
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
 from smell_detector.tools.custom_tool import CloneRepoTool
+from smell_detector.tools.custom_tool import ListRepoFilesTool
+from smell_detector.tools.custom_tool import ReadRepoFileTool
 # If you want to run a snippet of code before or after the crew starts,
 # you can use the @before_kickoff and @after_kickoff decorators
 # https://docs.crewai.com/concepts/crews#example-crew-class-with-decorators
@@ -14,18 +16,12 @@ class SmellDetector():
     agents: List[BaseAgent]
     tasks: List[Task]
 
-    @agent
-    def github_reader(self) -> Agent:
-        return Agent(
-            config=self.agents_config['github_reader'], # type: ignore[index]
-            tool=[CloneRepoTool()],
-            verbose=True
-        )
 
     @agent
     def code_smell_analyzer(self) -> Agent:
         return Agent(
             config=self.agents_config['code_smell_analyzer'], # type: ignore[index]
+            tools=[ListRepoFilesTool(), ReadRepoFileTool()],
             verbose=True
         )
     
@@ -39,11 +35,6 @@ class SmellDetector():
     # To learn more about structured task outputs,
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
-    @task
-    def github_fetch_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['github_fetch_task'], # type: ignore[index]
-        )
     
     @task
     def smell_analysis_task(self) -> Task:
