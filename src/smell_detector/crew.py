@@ -18,6 +18,15 @@ class SmellDetector():
 
 
     @agent
+    def repo_cloner(self) -> Agent:
+        return Agent(
+            config=self.agents_config['repo_cloner'],
+            tools=[CloneRepoTool()],
+            verbose=True,
+            max_iter=3,  # il task è semplice, non serve girare a lungo
+        )
+
+    @agent
     def code_smell_analyzer(self) -> Agent:
         return Agent(
             config=self.agents_config['code_smell_analyzer'], # type: ignore[index]
@@ -35,6 +44,12 @@ class SmellDetector():
     # To learn more about structured task outputs,
     # task dependencies, and task callbacks, check out the documentation:
     # https://docs.crewai.com/concepts/tasks#overview-of-a-task
+
+    @task
+    def clone_repo_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['clone_repo_task'],
+        )
     
     @task
     def smell_analysis_task(self) -> Task:

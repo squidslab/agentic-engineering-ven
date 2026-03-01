@@ -1,3 +1,13 @@
+clone_repo_task:
+  description: >
+    Clone the GitHub repository at {repo_url} into the local directory ./cloned_repo.
+    Use the "Clone GitHub Repository" tool with repo_url={repo_url}.
+    Report whether the clone was successful or not.
+  expected_output: >
+    A confirmation message that the repository was cloned successfully,
+    including the local path where it was saved.
+  agent: repo_cloner
+
 smell_analysis_task:
   description: >
     Analyze the repository located at ./cloned_repo for potential code smells.

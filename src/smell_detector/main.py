@@ -24,7 +24,7 @@ def run():
 
 
     try:
-        CloneRepoTool().run(repo_url=inputs["repo_url"])
+        # CloneRepoTool().run(repo_url=inputs["repo_url"])
         SmellDetector().crew().kickoff(inputs=inputs)
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")

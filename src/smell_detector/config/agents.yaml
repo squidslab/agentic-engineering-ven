@@ -1,3 +1,13 @@
+repo_cloner:
+  role: >
+    Repository Cloner
+  goal: >
+    Clone the target Git repository locally so other agents can analyze its contents
+  backstory: >
+    You are responsible for fetching the source code from GitHub.
+    You MUST use the "Clone GitHub Repository" tool with the provided repo_url.
+    Do not do anything else.
+
 code_smell_analyzer:
   role: >
     Code Smell Analyzer
